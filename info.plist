@@ -1,0 +1,547 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>bundleid</key>
+	<string>dev.larslorenz.things</string>
+	<key>category</key>
+	<string>Productivity</string>
+	<key>connections</key>
+	<dict>
+		<key>14FFB4C0-E060-4AB8-9011-CBCEA34451E2</key>
+		<array>
+			<dict>
+				<key>destinationuid</key>
+				<string>40059BC9-D92F-44B8-89EA-6FCAD7DC56D8</string>
+				<key>modifiers</key>
+				<integer>0</integer>
+				<key>modifiersubtext</key>
+				<string></string>
+				<key>vitoclose</key>
+				<false/>
+			</dict>
+		</array>
+		<key>1ED042D3-18B0-4697-87C3-624A7B1B4ABA</key>
+		<array>
+			<dict>
+				<key>destinationuid</key>
+				<string>69AC0185-4CD5-4DB0-9B53-9C7232DE74C3</string>
+				<key>modifiers</key>
+				<integer>0</integer>
+				<key>modifiersubtext</key>
+				<string></string>
+				<key>vitoclose</key>
+				<false/>
+			</dict>
+		</array>
+		<key>40059BC9-D92F-44B8-89EA-6FCAD7DC56D8</key>
+		<array>
+			<dict>
+				<key>destinationuid</key>
+				<string>1ED042D3-18B0-4697-87C3-624A7B1B4ABA</string>
+				<key>modifiers</key>
+				<integer>0</integer>
+				<key>modifiersubtext</key>
+				<string></string>
+				<key>vitoclose</key>
+				<false/>
+			</dict>
+		</array>
+		<key>69AC0185-4CD5-4DB0-9B53-9C7232DE74C3</key>
+		<array>
+			<dict>
+				<key>destinationuid</key>
+				<string>EBD4318E-A26C-48D8-8928-288574B37F6D</string>
+				<key>modifiers</key>
+				<integer>0</integer>
+				<key>modifiersubtext</key>
+				<string></string>
+				<key>vitoclose</key>
+				<false/>
+			</dict>
+			<dict>
+				<key>destinationuid</key>
+				<string>727EE256-B0FA-4BE9-A531-EA15309AFFBE</string>
+				<key>modifiers</key>
+				<integer>0</integer>
+				<key>modifiersubtext</key>
+				<string></string>
+				<key>vitoclose</key>
+				<false/>
+			</dict>
+		</array>
+		<key>727EE256-B0FA-4BE9-A531-EA15309AFFBE</key>
+		<array>
+			<dict>
+				<key>destinationuid</key>
+				<string>F5DFEF15-C8D8-4CFC-B299-D38E320CFC74</string>
+				<key>modifiers</key>
+				<integer>0</integer>
+				<key>modifiersubtext</key>
+				<string></string>
+				<key>sourceoutputuid</key>
+				<string>86D889F4-F2EE-4D11-90CA-9B1816684956</string>
+				<key>vitoclose</key>
+				<false/>
+			</dict>
+		</array>
+		<key>E1302258-BB44-4413-986B-639049E2C5A3</key>
+		<array>
+			<dict>
+				<key>destinationuid</key>
+				<string>661FDD9E-0B5B-4B5A-83B8-56274DFC9E00</string>
+				<key>modifiers</key>
+				<integer>0</integer>
+				<key>modifiersubtext</key>
+				<string></string>
+				<key>vitoclose</key>
+				<false/>
+			</dict>
+		</array>
+		<key>EBD4318E-A26C-48D8-8928-288574B37F6D</key>
+		<array>
+			<dict>
+				<key>destinationuid</key>
+				<string>E1302258-BB44-4413-986B-639049E2C5A3</string>
+				<key>modifiers</key>
+				<integer>0</integer>
+				<key>modifiersubtext</key>
+				<string></string>
+				<key>vitoclose</key>
+				<false/>
+			</dict>
+		</array>
+	</dict>
+	<key>createdby</key>
+	<string>Lars Lorenz</string>
+	<key>description</key>
+	<string></string>
+	<key>disabled</key>
+	<false/>
+	<key>name</key>
+	<string>Create Task</string>
+	<key>objects</key>
+	<array>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>alfredfiltersresults</key>
+				<false/>
+				<key>alfredfiltersresultsmatchmode</key>
+				<integer>0</integer>
+				<key>argumenttreatemptyqueryasnil</key>
+				<true/>
+				<key>argumenttrimmode</key>
+				<integer>0</integer>
+				<key>argumenttype</key>
+				<integer>1</integer>
+				<key>escaping</key>
+				<integer>0</integer>
+				<key>queuedelaycustom</key>
+				<integer>3</integer>
+				<key>queuedelayimmediatelyinitially</key>
+				<true/>
+				<key>queuedelaymode</key>
+				<integer>1</integer>
+				<key>queuemode</key>
+				<integer>2</integer>
+				<key>runningsubtext</key>
+				<string></string>
+				<key>script</key>
+				<string>var system = Application.currentApplication()
+system.includeStandardAdditions = true
+
+function readFile(filename) {
+  return system.doShellScript(`cat "$(pwd)/${filename}"`)
+}
+
+function run(argv) {
+  var query = argv[0];
+  var data = JSON.parse(readFile('data.json'))
+
+  const history = data.history.sort(function (a, b) {
+    if (a.timestamp &gt; b.timestamp) {
+      return -1;
+    } else {
+      return 1;
+    }
+  })
+
+  const items = history.map((item) =&gt; ({ title: item.title, arg: item.title }))
+  const options = { items }
+
+
+  if (query) {
+    options.items.unshift({
+      title: query,
+      arg: query,
+    })
+  } else {
+    options.items.unshift({
+      title: 'Inbox',
+    })
+  }
+
+  return JSON.stringify(options)
+}</string>
+				<key>scriptargtype</key>
+				<integer>1</integer>
+				<key>scriptfile</key>
+				<string>gdfgdg</string>
+				<key>subtext</key>
+				<string>optional</string>
+				<key>title</key>
+				<string>Project</string>
+				<key>type</key>
+				<integer>7</integer>
+				<key>withspace</key>
+				<true/>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.input.scriptfilter</string>
+			<key>uid</key>
+			<string>69AC0185-4CD5-4DB0-9B53-9C7232DE74C3</string>
+			<key>version</key>
+			<integer>3</integer>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>lastpathcomponent</key>
+				<false/>
+				<key>onlyshowifquerypopulated</key>
+				<true/>
+				<key>removeextension</key>
+				<false/>
+				<key>text</key>
+				<string>{var:title}</string>
+				<key>title</key>
+				<string>Task has been added</string>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.output.notification</string>
+			<key>uid</key>
+			<string>661FDD9E-0B5B-4B5A-83B8-56274DFC9E00</string>
+			<key>version</key>
+			<integer>1</integer>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>browser</key>
+				<string></string>
+				<key>spaces</key>
+				<string></string>
+				<key>url</key>
+				<string>things:///add?title={var:title}&amp;when={var:when}&amp;list={var:list}</string>
+				<key>utf8</key>
+				<true/>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.action.openurl</string>
+			<key>uid</key>
+			<string>E1302258-BB44-4413-986B-639049E2C5A3</string>
+			<key>version</key>
+			<integer>1</integer>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>alfredfiltersresults</key>
+				<false/>
+				<key>alfredfiltersresultsmatchmode</key>
+				<integer>0</integer>
+				<key>argumenttreatemptyqueryasnil</key>
+				<true/>
+				<key>argumenttrimmode</key>
+				<integer>0</integer>
+				<key>argumenttype</key>
+				<integer>0</integer>
+				<key>escaping</key>
+				<integer>68</integer>
+				<key>keyword</key>
+				<string>t</string>
+				<key>queuedelaycustom</key>
+				<integer>3</integer>
+				<key>queuedelayimmediatelyinitially</key>
+				<true/>
+				<key>queuedelaymode</key>
+				<integer>0</integer>
+				<key>queuemode</key>
+				<integer>1</integer>
+				<key>runningsubtext</key>
+				<string></string>
+				<key>script</key>
+				<string>function run(argv) {
+  const query = argv[0];
+  const options = {
+    items: [
+      {
+        title: 'Today',
+        subtitle: 'Create a new task for today',
+        arg: query,
+        variables: {
+          when: 'today',
+        },
+      },
+      {
+        title: 'Someday',
+        subtitle: 'Create a new task',
+        arg: query,
+      },
+      {
+        title: 'Tomorrow',
+        subtitle: 'Create a new task for tomorrow',
+        arg: query,
+        variables: {
+          when: 'tomorrow',
+        },
+      },
+    ]
+  }
+
+  return JSON.stringify(options)
+}</string>
+				<key>scriptargtype</key>
+				<integer>1</integer>
+				<key>scriptfile</key>
+				<string></string>
+				<key>subtext</key>
+				<string>Create a new Task</string>
+				<key>title</key>
+				<string>Add a Task to Things</string>
+				<key>type</key>
+				<integer>7</integer>
+				<key>withspace</key>
+				<true/>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.input.scriptfilter</string>
+			<key>uid</key>
+			<string>14FFB4C0-E060-4AB8-9011-CBCEA34451E2</string>
+			<key>version</key>
+			<integer>3</integer>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>argument</key>
+				<string>{query}</string>
+				<key>passthroughargument</key>
+				<false/>
+				<key>variables</key>
+				<dict>
+					<key>list</key>
+					<string>{query}</string>
+				</dict>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.utility.argument</string>
+			<key>uid</key>
+			<string>EBD4318E-A26C-48D8-8928-288574B37F6D</string>
+			<key>version</key>
+			<integer>1</integer>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>matchmode</key>
+				<integer>0</integer>
+				<key>matchstring</key>
+				<string>{var:title}</string>
+				<key>replacestring</key>
+				<string></string>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.utility.replace</string>
+			<key>uid</key>
+			<string>1ED042D3-18B0-4697-87C3-624A7B1B4ABA</string>
+			<key>version</key>
+			<integer>2</integer>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>argument</key>
+				<string>{query}</string>
+				<key>passthroughargument</key>
+				<false/>
+				<key>variables</key>
+				<dict>
+					<key>title</key>
+					<string>{query}</string>
+				</dict>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.utility.argument</string>
+			<key>uid</key>
+			<string>40059BC9-D92F-44B8-89EA-6FCAD7DC56D8</string>
+			<key>version</key>
+			<integer>1</integer>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>concurrently</key>
+				<false/>
+				<key>escaping</key>
+				<integer>68</integer>
+				<key>script</key>
+				<string>var system = Application.currentApplication()
+system.includeStandardAdditions = true
+
+function writeFile(filename, content) {
+  system.doShellScript(`echo '${content}' &gt; "$(pwd)/${filename}"`)
+}
+
+function readFile(filename) {
+  return system.doShellScript(`cat "$(pwd)/${filename}"`)
+}
+
+function run(argv) {
+  var query = argv[0]
+  var data = JSON.parse(readFile('data.json'))
+
+
+  let history = data.history.sort(function (a, b) {
+    if (a.timestamp &gt; b.timestamp) {
+      return -1
+    } else {
+      return 1
+    }
+  })
+
+  const entry = history.find((entry) =&gt; entry.title === query)
+
+  if (entry) {
+    history[history.indexOf(entry)].timestamp = new Date().toISOString()
+  } else {
+    history.unshift({ title: query, timestamp: new Date().toISOString() })
+
+    if (history.length &gt; 5) {
+      history.pop()
+    }
+  }
+
+
+  writeFile('data.json', JSON.stringify({ history }))
+}</string>
+				<key>scriptargtype</key>
+				<integer>1</integer>
+				<key>scriptfile</key>
+				<string></string>
+				<key>type</key>
+				<integer>7</integer>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.action.script</string>
+			<key>uid</key>
+			<string>F5DFEF15-C8D8-4CFC-B299-D38E320CFC74</string>
+			<key>version</key>
+			<integer>2</integer>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>conditions</key>
+				<array>
+					<dict>
+						<key>inputstring</key>
+						<string>{query}</string>
+						<key>matchcasesensitive</key>
+						<false/>
+						<key>matchmode</key>
+						<integer>1</integer>
+						<key>matchstring</key>
+						<string></string>
+						<key>outputlabel</key>
+						<string></string>
+						<key>uid</key>
+						<string>86D889F4-F2EE-4D11-90CA-9B1816684956</string>
+					</dict>
+				</array>
+				<key>elselabel</key>
+				<string>else</string>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.utility.conditional</string>
+			<key>uid</key>
+			<string>727EE256-B0FA-4BE9-A531-EA15309AFFBE</string>
+			<key>version</key>
+			<integer>1</integer>
+		</dict>
+	</array>
+	<key>readme</key>
+	<string></string>
+	<key>uidata</key>
+	<dict>
+		<key>14FFB4C0-E060-4AB8-9011-CBCEA34451E2</key>
+		<dict>
+			<key>xpos</key>
+			<integer>60</integer>
+			<key>ypos</key>
+			<integer>60</integer>
+		</dict>
+		<key>1ED042D3-18B0-4697-87C3-624A7B1B4ABA</key>
+		<dict>
+			<key>xpos</key>
+			<integer>315</integer>
+			<key>ypos</key>
+			<integer>90</integer>
+		</dict>
+		<key>40059BC9-D92F-44B8-89EA-6FCAD7DC56D8</key>
+		<dict>
+			<key>xpos</key>
+			<integer>240</integer>
+			<key>ypos</key>
+			<integer>90</integer>
+		</dict>
+		<key>661FDD9E-0B5B-4B5A-83B8-56274DFC9E00</key>
+		<dict>
+			<key>xpos</key>
+			<integer>895</integer>
+			<key>ypos</key>
+			<integer>60</integer>
+		</dict>
+		<key>69AC0185-4CD5-4DB0-9B53-9C7232DE74C3</key>
+		<dict>
+			<key>xpos</key>
+			<integer>415</integer>
+			<key>ypos</key>
+			<integer>60</integer>
+		</dict>
+		<key>727EE256-B0FA-4BE9-A531-EA15309AFFBE</key>
+		<dict>
+			<key>xpos</key>
+			<integer>605</integer>
+			<key>ypos</key>
+			<integer>235</integer>
+		</dict>
+		<key>E1302258-BB44-4413-986B-639049E2C5A3</key>
+		<dict>
+			<key>xpos</key>
+			<integer>705</integer>
+			<key>ypos</key>
+			<integer>60</integer>
+		</dict>
+		<key>EBD4318E-A26C-48D8-8928-288574B37F6D</key>
+		<dict>
+			<key>xpos</key>
+			<integer>605</integer>
+			<key>ypos</key>
+			<integer>90</integer>
+		</dict>
+		<key>F5DFEF15-C8D8-4CFC-B299-D38E320CFC74</key>
+		<dict>
+			<key>xpos</key>
+			<integer>710</integer>
+			<key>ypos</key>
+			<integer>205</integer>
+		</dict>
+	</dict>
+	<key>version</key>
+	<string>0.2.0</string>
+	<key>webaddress</key>
+	<string>https://larslorenz.dev</string>
+</dict>
+</plist>
