@@ -10,3 +10,4 @@ jobs:
       with:
         type: 'zip'
         filename: 'release.alfredworkflow'
+        exclusions: '*.git* *.github*'
