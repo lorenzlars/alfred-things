@@ -6,7 +6,7 @@ jobs:
     steps:
     - uses: actions/checkout@master
     - name: Archive Release
-      run: 'zip things.alfredworkflow info.plist icon.plist data.json'
+      run: 'zip things.alfredworkflow info.plist icon.png data.json'
     - name: Create Release
       id: create_release
       uses: actions/create-release@v1
