@@ -6,13 +6,21 @@ jobs:
     steps:
     - uses: actions/checkout@master
     - name: Archive Release
-      uses: thedoctor0/zip-release@master
+      run: 'zip things.alfredworkflow info.plist icon.plist data.json'
+    - name: Create Release
+      id: create_release
+      uses: actions/create-release@v1
+      env:
+        GITHUB_TOKEN: ${{ github.token }}
       with:
-        type: 'zip'
-        filename: 'things.alfredworkflow'
-        exclusions: '*.git* *.github*'
-    - name: Upload Release
-      uses: ncipollo/release-action@v1
+        tag_name: ${{ github.ref }}
+        release_name: Release ${{ github.ref }}
+    - name: Upload artifact
+      uses: actions/upload-release-asset@v1
+      env:
+        GITHUB_TOKEN: ${{ github.token }}
       with:
-        artifacts: 'things.alfredworkflow'
-        token: ${{ secrets.GITHUB_TOKEN }}
+        upload_url: ${{ steps.create_release.outputs.upload_url }}
+        asset_path: ./things.alfredworkflow
+        asset_name: things.alfredworkflow
+        asset_content_type: application/gzip
