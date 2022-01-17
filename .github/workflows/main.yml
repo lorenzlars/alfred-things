@@ -9,5 +9,10 @@ jobs:
       uses: thedoctor0/zip-release@master
       with:
         type: 'zip'
-        filename: 'release.alfredworkflow'
+        filename: 'things.alfredworkflow'
         exclusions: '*.git* *.github*'
+    - name: Upload Release
+      uses: ncipollo/release-action@v1
+      with:
+        artifacts: 'things.alfredworkflow'
+        token: ${{ secrets.GITHUB_TOKEN }}
