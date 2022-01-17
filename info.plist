@@ -21,24 +21,11 @@
 				<false/>
 			</dict>
 		</array>
-		<key>1ED042D3-18B0-4697-87C3-624A7B1B4ABA</key>
-		<array>
-			<dict>
-				<key>destinationuid</key>
-				<string>69AC0185-4CD5-4DB0-9B53-9C7232DE74C3</string>
-				<key>modifiers</key>
-				<integer>0</integer>
-				<key>modifiersubtext</key>
-				<string></string>
-				<key>vitoclose</key>
-				<false/>
-			</dict>
-		</array>
 		<key>40059BC9-D92F-44B8-89EA-6FCAD7DC56D8</key>
 		<array>
 			<dict>
 				<key>destinationuid</key>
-				<string>1ED042D3-18B0-4697-87C3-624A7B1B4ABA</string>
+				<string>69AC0185-4CD5-4DB0-9B53-9C7232DE74C3</string>
 				<key>modifiers</key>
 				<integer>0</integer>
 				<key>modifiersubtext</key>
@@ -326,44 +313,7 @@ function run(argv) {
 			<key>config</key>
 			<dict>
 				<key>argument</key>
-				<string>{query}</string>
-				<key>passthroughargument</key>
-				<false/>
-				<key>variables</key>
-				<dict>
-					<key>list</key>
-					<string>{query}</string>
-				</dict>
-			</dict>
-			<key>type</key>
-			<string>alfred.workflow.utility.argument</string>
-			<key>uid</key>
-			<string>EBD4318E-A26C-48D8-8928-288574B37F6D</string>
-			<key>version</key>
-			<integer>1</integer>
-		</dict>
-		<dict>
-			<key>config</key>
-			<dict>
-				<key>matchmode</key>
-				<integer>0</integer>
-				<key>matchstring</key>
-				<string>{var:title}</string>
-				<key>replacestring</key>
 				<string></string>
-			</dict>
-			<key>type</key>
-			<string>alfred.workflow.utility.replace</string>
-			<key>uid</key>
-			<string>1ED042D3-18B0-4697-87C3-624A7B1B4ABA</string>
-			<key>version</key>
-			<integer>2</integer>
-		</dict>
-		<dict>
-			<key>config</key>
-			<dict>
-				<key>argument</key>
-				<string>{query}</string>
 				<key>passthroughargument</key>
 				<false/>
 				<key>variables</key>
@@ -376,6 +326,26 @@ function run(argv) {
 			<string>alfred.workflow.utility.argument</string>
 			<key>uid</key>
 			<string>40059BC9-D92F-44B8-89EA-6FCAD7DC56D8</string>
+			<key>version</key>
+			<integer>1</integer>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>argument</key>
+				<string></string>
+				<key>passthroughargument</key>
+				<false/>
+				<key>variables</key>
+				<dict>
+					<key>list</key>
+					<string>{query}</string>
+				</dict>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.utility.argument</string>
+			<key>uid</key>
+			<string>EBD4318E-A26C-48D8-8928-288574B37F6D</string>
 			<key>version</key>
 			<integer>1</integer>
 		</dict>
@@ -477,22 +447,17 @@ function run(argv) {
 	<dict>
 		<key>14FFB4C0-E060-4AB8-9011-CBCEA34451E2</key>
 		<dict>
+			<key>note</key>
+			<string>Add title of the task and select the schedule</string>
 			<key>xpos</key>
 			<integer>60</integer>
 			<key>ypos</key>
 			<integer>60</integer>
-		</dict>
-		<key>1ED042D3-18B0-4697-87C3-624A7B1B4ABA</key>
-		<dict>
-			<key>xpos</key>
-			<integer>315</integer>
-			<key>ypos</key>
-			<integer>90</integer>
 		</dict>
 		<key>40059BC9-D92F-44B8-89EA-6FCAD7DC56D8</key>
 		<dict>
 			<key>xpos</key>
-			<integer>240</integer>
+			<integer>265</integer>
 			<key>ypos</key>
 			<integer>90</integer>
 		</dict>
@@ -505,13 +470,17 @@ function run(argv) {
 		</dict>
 		<key>69AC0185-4CD5-4DB0-9B53-9C7232DE74C3</key>
 		<dict>
+			<key>note</key>
+			<string>Optionally add the task to a project or select a previously used project.</string>
 			<key>xpos</key>
-			<integer>415</integer>
+			<integer>365</integer>
 			<key>ypos</key>
 			<integer>60</integer>
 		</dict>
 		<key>727EE256-B0FA-4BE9-A531-EA15309AFFBE</key>
 		<dict>
+			<key>note</key>
+			<string>If a project was entered, update the project history.</string>
 			<key>xpos</key>
 			<integer>605</integer>
 			<key>ypos</key>
